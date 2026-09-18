@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#173f3a">
+  <meta name="description" content="可自动生成新题的原创 JLPT N1 每日文法、阅读与听力练习">
+  <title>N1 每日冲刺</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="回到顶部"><span>日</span>N1 每日冲刺</a>
+    <button id="statsButton" class="ghost" type="button">学习记录</button>
+  </header>
+
+  <main id="top" class="shell">
+    <section class="hero">
+      <div>
+        <p class="eyebrow" id="todayLabel"></p>
+        <h1>今天，稳稳向前一步。</h1>
+        <p id="setIntro" class="lead"></p>
+      </div>
+      <div class="score-ring" aria-label="今日完成度">
+        <strong id="progressPercent">0%</strong><span>完成度</span>
+      </div>
+    </section>
+
+    <nav class="module-nav" aria-label="练习模块">
+      <a href="#grammar">文法</a><a href="#reading">阅读</a><a href="#listening">听力</a>
+    </nav>
+
+    <form id="practiceForm">
+      <section id="grammar" class="module-card">
+        <div class="module-heading"><span class="module-number">01</span><div><h2>文法</h2><p>10题｜单项选择、语序重组、文章文法</p></div></div>
+        <div id="grammarQuestions" class="questions"></div>
+      </section>
+
+      <section id="reading" class="module-card">
+        <div class="module-heading"><span class="module-number">02</span><div><h2>阅读</h2><p>5题｜中篇理解与信息检索</p></div></div>
+        <article id="readingPassage" class="passage"></article>
+        <div id="readingQuestions" class="questions"></div>
+      </section>
+
+      <section id="listening" class="module-card">
+        <div class="module-heading"><span class="module-number">03</span><div><h2>听力</h2><p>8题｜整组连续播放，最后统一作答</p></div></div>
+        <div class="audio-panel">
+          <button id="playAudio" class="audio-button" type="button"><span aria-hidden="true">▶</span> 连续播放整组</button>
+          <button id="stopAudio" class="ghost small" type="button">停止</button>
+          <p id="audioStatus" role="status">播放期间不会显示原文与答案</p>
+        </div>
+        <div id="listeningQuestions" class="questions"></div>
+        <details id="transcript" class="transcript" hidden><summary>听力原文</summary><p></p></details>
+      </section>
+
+      <div class="submit-bar">
+        <p id="answerStatus" role="status">全部答完后统一提交，提交前不会显示答案。</p>
+        <button id="submitButton" class="primary" type="submit">提交今日练习</button>
+      </div>
+    </form>
+
+    <section id="resultPanel" class="result-panel" hidden aria-live="polite"></section>
+  </main>
+
+  <dialog id="statsDialog">
+    <div class="dialog-head"><div><p class="eyebrow">LOCAL PROGRESS</p><h2>学习记录</h2></div><button id="closeStats" class="icon-button" aria-label="关闭">×</button></div>
+    <div id="statsContent"></div>
+  </dialog>
+
+  <footer>原创练习 · 做完后由 AI 生成新题 · 记录仅保存在你的浏览器中</footer>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
+
