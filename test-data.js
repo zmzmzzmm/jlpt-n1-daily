@@ -2,7 +2,7 @@ const fs=require("fs"),vm=require("vm"),context={window:{}};
 vm.createContext(context);
 vm.runInContext(fs.readFileSync("data.js","utf8"),context);
 const sets=context.window.DAILY_SETS;
-if(sets.length!==12)throw new Error("需要 12 套每日练习");
+if(sets.length!==13)throw new Error("需要 13 套每日练习");
 for(const set of sets){
   const groups=[set.grammar,set.reading.questions,set.listening.questions];
   if(groups.map(x=>x.length).join()!=="10,5,8")throw new Error(`${set.id} 题量错误`);
@@ -14,8 +14,8 @@ for(const set of sets){
   }
   if(set.listening.script.split(/\n\n+/).length<9)throw new Error(`${set.id} 听力不足 8 题`);
 }
-const done=new Set(sets.slice(0,11).map(s=>s.id));
-if(sets.find(s=>!done.has(s.id))?.id!=="set-12")throw new Error("完成前十一套后没有进入新题");
-if(sets.filter(s=>s.date==="2026-10-08").length!==1)throw new Error("明日练习日期缺失或重复");
-console.log("12 套原创练习检查通过：明日新题唯一，完成前十一套后进入新题。");
+const done=new Set(sets.slice(0,12).map(s=>s.id));
+if(sets.find(s=>!done.has(s.id))?.id!=="set-13")throw new Error("完成前十二套后没有进入新题");
+if(sets.filter(s=>s.date==="2026-10-09").length!==1)throw new Error("明日练习日期缺失或重复");
+console.log("13 套原创练习检查通过：明日新题唯一，完成前十二套后进入新题。");
 
