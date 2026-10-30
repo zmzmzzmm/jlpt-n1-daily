@@ -2,7 +2,7 @@ const fs=require("fs"),vm=require("vm"),context={window:{}};
 vm.createContext(context);
 vm.runInContext(fs.readFileSync("data.js","utf8"),context);
 const sets=context.window.DAILY_SETS;
-if(sets.length!==28)throw new Error("需要 28 套每日练习");
+if(sets.length!==29)throw new Error("需要 29 套每日练习");
 for(const set of sets){
   const groups=[set.grammar,set.reading.questions,set.listening.questions];
   if(groups.map(x=>x.length).join()!=="10,5,8")throw new Error(`${set.id} 题量错误`);
@@ -15,11 +15,11 @@ for(const set of sets){
   }
   if(set.listening.script.split(/\n\n+/).length!==9||!/一番[。．]/.test(set.listening.script)||!/八番[。．]/.test(set.listening.script))throw new Error(`${set.id} 听力段落错误`);
 }
-const done=new Set(sets.slice(0,27).map(s=>s.id));
-if(sets.find(s=>!done.has(s.id))?.id!=="set-28")throw new Error("完成前二十七套后没有进入新题");
-if(sets.filter(s=>s.date==="2026-10-30").length!==1)throw new Error("明日练习日期缺失或重复");
+const done=new Set(sets.slice(0,28).map(s=>s.id));
+if(sets.find(s=>!done.has(s.id))?.id!=="set-29")throw new Error("完成前二十八套后没有进入新题");
+if(sets.filter(s=>s.date==="2026-10-31").length!==1)throw new Error("明日练习日期缺失或重复");
 const newStems=[...sets.at(-1).grammar,...sets.at(-1).reading.questions,...sets.at(-1).listening.questions].map(q=>q.text);
 const oldStems=new Set(sets.slice(0,-1).flatMap(s=>[...s.grammar,...s.reading.questions,...s.listening.questions].map(q=>q.text)));
 if(newStems.some(text=>oldStems.has(text)))throw new Error("新题与既有题目重复");
-console.log("28 套原创练习检查通过：题型、题量、题号、答案、听力分段和目标日期均有效。");
+console.log("29 套原创练习检查通过：题型、题量、题号、答案、听力分段和目标日期均有效。");
 
